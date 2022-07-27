@@ -22,8 +22,6 @@ def get_transform(out_size,kind='train'):
     if kind == 'train':
         transform = A.Compose([
         A.RandomScale(scale_limit=0.2),  # +/- 20%
-        A.PadIfNeeded(min_height=out_size, min_width=out_size),
-        A.RandomCrop(height=out_size, width=out_size),
         A.HorizontalFlip(),
         A.CLAHE(),
         A.RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2),
@@ -38,10 +36,11 @@ def get_transform(out_size,kind='train'):
         ])
     return transform
 
-class get_dataset(Dataset):
+class DataloaderDogCat(Dataset):
     def __init__(self, indir,kind = 'train'):
         self.in_files = list(glob.glob(os.path.join(indir, '**', '*.jpg'), recursive=True))
-        self.transform = get_transform(156,kind)
+        random.shuffle(self.in_files)
+        self.transform = get_transform(kind)
         self.iter_i = 0
         self.kind = kind
 
@@ -59,5 +58,8 @@ class get_dataset(Dataset):
         label = torch.tensor(label, dtype = torch.float32)
         return img,label
 
-
-
+if __name__ =='__main__': 
+    data = DataloaderDogCat(indir='./train/',kind = 'train')
+    for i in range(100):
+        img, label = data[i]
+        print(label)
