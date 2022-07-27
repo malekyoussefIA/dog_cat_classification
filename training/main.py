@@ -11,9 +11,10 @@ def main(training_config='./configs/default.yaml'):
 
     train(configuration.training.epochs,
           configuration.optimizer.lr,
+          configuration.training.batch_size,
           configuration.training.model_to_load,
-          configuration.dataset_path,
-          configuration.ckpt_path)
+          configuration.training.dataset_path,
+          configuration.training.ckpt_path)
 
 
 if __name__ =='__main__': 

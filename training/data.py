@@ -17,11 +17,10 @@ import pandas as pd
 
 
 # prepare data
-def get_data():
-    train_data = DataloaderDogCat('./train',kind = 'train')
-    val_data = DataloaderDogCat('./val',kind = 'val')
-    test_data =  DataloaderDogCat('./test',kind = 'test')
-    return train_data,val_data,test_data
+def get_data(dataset_path):
+    train_data = DataloaderDogCat(dataset_path+'train',kind = 'train')
+    val_data = DataloaderDogCat(dataset_path+'val',kind = 'val')
+    return train_data,val_data
 
 def save_paths(names_list,kind):
     dict = {'image_name':names_list}
