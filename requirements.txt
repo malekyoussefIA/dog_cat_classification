@@ -5,7 +5,11 @@ opencv-python
 
 torch
 torchvision
+efficientnet_pytorch
+albumentations
 
 matplotlib
 pandas
-albumentations
+tqdm
+wandb
+omegaconf 

@@ -1,0 +1,8 @@
+training:
+   epochs : 32
+   model_to_load : 'resnet50'
+   dataset_path : '../'   # path where train,val,test folders are located
+   ckpt_path : '../checkpoints/'
+
+optimizer:
+   lr: 0.001

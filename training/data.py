@@ -15,6 +15,7 @@ import pandas as pd
 
 
 
+
 # prepare data
 def get_data():
     train_data = DataloaderDogCat('./train',kind = 'train')
@@ -73,6 +74,7 @@ class DataloaderDogCat(Dataset):
         label = torch.tensor(label, dtype = torch.float32)
         return img,label
 
+## debug
 if __name__ =='__main__': 
     data = DataloaderDogCat(indir='./train/',kind = 'train')
 
