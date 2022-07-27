@@ -1,0 +1,10 @@
+numpy
+scikit-image
+scikit-learn
+opencv-python
+torchvision
+torch
+matplotlib
+pandas
+scikit-learn
+albumentations
