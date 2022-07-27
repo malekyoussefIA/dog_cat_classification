@@ -11,17 +11,30 @@ import matplotlib.pyplot as plt
 from skimage.feature import canny
 from skimage.transform import rescale, resize
 from torch.utils.data import Dataset
+import pandas as pd  
 
 
 
+# prepare data
+def get_data():
+    train_data = DataloaderDogCat('./train',kind = 'train')
+    val_data = DataloaderDogCat('./val',kind = 'val')
+    test_data =  DataloaderDogCat('./test',kind = 'test')
+    return train_data,val_data,test_data
 
+def save_paths(names_list,kind):
+    dict = {'image_name':names_list}
+    df = pd.DataFrame(dict)     
+    # saving the dataframe 
+    df.to_csv('./csv/'+kind+'.csv') 
+
+    
 
 
 # define our data augmentation transform
 def get_transform(out_size,kind='train'):
     if kind == 'train':
         transform = A.Compose([
-        A.RandomScale(scale_limit=0.2),  # +/- 20%
         A.HorizontalFlip(),
         A.CLAHE(),
         A.RandomBrightnessContrast(brightness_limit=0.2, contrast_limit=0.2),
@@ -29,7 +42,7 @@ def get_transform(out_size,kind='train'):
         A.Normalize(),
         A.ToFloat()
         ])
-    else:
+    elif kind == 'test' or kind == 'val':
         transform =  A.Compose([
         A.Normalize(),
         A.ToFloat()
@@ -40,6 +53,7 @@ class DataloaderDogCat(Dataset):
     def __init__(self, indir,kind = 'train'):
         self.in_files = list(glob.glob(os.path.join(indir, '**', '*.jpg'), recursive=True))
         random.shuffle(self.in_files)
+        save_paths(self.in_files,kind) # save our train,val,test image names in CSVs (this way we keep track of our datasets)
         self.transform = get_transform(kind)
         self.iter_i = 0
         self.kind = kind
@@ -50,16 +64,15 @@ class DataloaderDogCat(Dataset):
     def __getitem__(self, item):
         path = self.in_files[item]
         img = cv2.imread(path)
+        img = cv2.resize(img, (128,128), interpolation= cv2.INTER_LINEAR)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         img = self.transform(image=img)['image']
         img = np.transpose(img, (2, 0, 1))
         filename = path.split('/')[-1]
-        label = filename.split('.')[0]=='dog'
+        label = filename.split('.')[0]=='dog'  # we assume here that the dog images are labeled "1" and cats "0"
         label = torch.tensor(label, dtype = torch.float32)
         return img,label
 
 if __name__ =='__main__': 
     data = DataloaderDogCat(indir='./train/',kind = 'train')
-    for i in range(100):
-        img, label = data[i]
-        print(label)
+

@@ -2,9 +2,10 @@ numpy
 scikit-image
 scikit-learn
 opencv-python
-torchvision
+
 torch
+torchvision
+
 matplotlib
 pandas
-scikit-learn
 albumentations
