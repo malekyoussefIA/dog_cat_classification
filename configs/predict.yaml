@@ -2,10 +2,10 @@ data:
   path: '/data/malek/dog_cat_classification/test'
   batch_size : 12
 
-model_to_load : 'resnet50'
+model_to_load : 'resnet50'   #
 
 checkpoint :
-  path: '/data/malek/dog_cat_classification/checkpoints/best.ckpt'
+  path: '/data/malek/dog_cat_classification/checkpoints/best.ckpt' #make sure to put the right path to ckpt file
 
 output:
     csv_path:

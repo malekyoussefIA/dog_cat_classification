@@ -13,7 +13,7 @@ from utils import accuracy,clean_folder,EarlyStopping
 import wandb
 from efficientnet_pytorch import EfficientNet
 
-wandb.init(project='dog_cat_classification')
+wandb.init(project='dog_cat_classification',name='claasification_batch_64_lr_0.0001_epoch_26')
 
 def do_epoch(model,train_loader,val_loader,device,optimizer,criterion,ckpt_path):
     train_loss = []
@@ -62,7 +62,7 @@ def do_epoch(model,train_loader,val_loader,device,optimizer,criterion,ckpt_path)
         acc = accuracy(preds, labels)
         val_accuracy.append(acc)
 
-# Saving best checkpoints
+    ## Saving best checkpoints
     if min_loss > np.mean(val_loss):
         min_loss = np.mean(val_loss)
     torch.save(model.state_dict(), ckpt_path+'best.ckpt')
@@ -77,6 +77,7 @@ def train(epochs,lr,batch_size,model_to_load,dataset_path,ckpt_path):
     #clean data, as some images are two small (50*59) so all images under 128*128 will be removed
     clean_folder(dataset_path+'train/')
     clean_folder(dataset_path+'val/')
+    
     #check if GPUs are available(to make training faster)
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 

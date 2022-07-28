@@ -5,6 +5,7 @@ opencv-python
 
 torch
 torchvision
+torchmetrics
 efficientnet_pytorch
 albumentations
 
@@ -13,3 +14,4 @@ pandas
 tqdm
 wandb
 omegaconf 
+
