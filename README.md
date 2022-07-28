@@ -21,10 +21,10 @@ The dataset used for training is publicly available [here](https://storage.googl
 From this full set of images, 18 has been discarded from the training dataset and 11 from the validation one, since their size were below the minimal acceptable size (128x128). 
 ​
 From a general perspective: 
-	- The **.jpeg** images used for training were resized to 128x128. 
-	- The dataset contains N images of *dogs* and M of *cats*, total 2000 images with their corresponding labels.
-	- A train / val / test slip has been made and respectively set to 80% / 10% / 10%. 
-	- Some basic data-augmentation techniques were used during training (random horizontal flipping, 90° rotation... etc)
+	* The **.jpeg** images used for training were resized to 128x128. 
+	* The dataset contains N images of *dogs* and M of *cats*, total 2000 images with their corresponding labels.
+	* A train / val / test slip has been made and respectively set to 80% / 10% / 10%. 
+	* Some basic data-augmentation techniques were used during training (random horizontal flipping, 90° rotation... etc)
 ​
 ### Prerequies
 ​
