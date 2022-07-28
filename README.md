@@ -22,11 +22,8 @@ From this full set of images, 18 has been discarded from the training dataset an
 ​
 From a general perspective: 
 	- The **.jpeg** images used for training were resized to 128x128. 
-	
-	-  The dataset contains N images of *dogs* and M of *cats*, total 2000 images with their corresponding labels.
-	
+	- The dataset contains N images of *dogs* and M of *cats*, total 2000 images with their corresponding labels.
 	- A train / val / test slip has been made and respectively set to 80% / 10% / 10%. 
-	
 	- Some basic data-augmentation techniques were used during training (random horizontal flipping, 90° rotation... etc).
 ​
 ### Prerequies
