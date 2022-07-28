@@ -33,14 +33,14 @@ Such code can be smoothly run on any Unix system with Python installed. Even tho
 The whole code is build opon the PyTorch deep learning framework, and has only few requirements regarding its esssential library. 
 ​
 ​
-##Installation
+## Installation
 Clone the repo first : 
 ```
 git clone git@github.com:malekyoussefIA/dog_cat_classification.git
 ```
 and 
 ```
-cd /dog_cat_classification
+cd /dog_cat_classification 
 ```
 ​
 * To build up a new virtual environment:
