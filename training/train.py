@@ -13,7 +13,9 @@ from utils import accuracy,clean_folder,EarlyStopping
 import wandb
 from efficientnet_pytorch import EfficientNet
 
-wandb.init(project='dog_cat_classification',name='claasification_batch_64_lr_0.0001_epoch_26')
+# Initialise project on W&B
+wandb.init(project='dog_cat_classification',name='claasification_batch_32_lr_0.0001_epoch_26')
+
 
 def do_epoch(model,train_loader,val_loader,device,optimizer,criterion,ckpt_path):
     train_loss = []

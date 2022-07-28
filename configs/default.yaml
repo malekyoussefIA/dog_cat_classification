@@ -1,6 +1,6 @@
 training:
    epochs : 26
-   batch_size : 64
+   batch_size : 32
    model_to_load : 'resnet50'
    dataset_path : '/data/malek/dog_cat_classification/'   #  path where train,val,test folders are located
    ckpt_path : '/data/malek/dog_cat_classification/checkpoints/'  # path to where checkpoints will be saved

@@ -28,8 +28,6 @@ def save_paths(names_list,kind):
     # saving the dataframe 
     df.to_csv('./csv/'+kind+'.csv') 
 
-    
-
 
 # define our data augmentation transform
 def get_transform(out_size,kind='train'):
@@ -53,7 +51,8 @@ class DataloaderDogCat(Dataset):
     def __init__(self, indir,kind = 'train'):
         self.in_files = list(glob.glob(os.path.join(indir, '**', '*.jpg'), recursive=True))
         random.shuffle(self.in_files)
-        save_paths(self.in_files,kind) # save our train,val,test image names in CSVs (this way we keep track of our datasets)
+        # save our train,val,test image names in CSVs (this way we keep track of our datasets)
+        save_paths(self.in_files,kind) 
         self.transform = get_transform(kind)
         self.iter_i = 0
         self.kind = kind
@@ -69,7 +68,8 @@ class DataloaderDogCat(Dataset):
         img = self.transform(image=img)['image']
         img = np.transpose(img, (2, 0, 1))
         filename = path.split('/')[-1]
-        label = filename.split('.')[0]=='dog'  # we assume here that the dog images are labeled "1" and cats "0"
+        # we assume here that the dog images are labeled "1" and cats "0"
+        label = filename.split('.')[0]=='dog' 
         label = torch.tensor(label, dtype = torch.float32)
         return img,label
 

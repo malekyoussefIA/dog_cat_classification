@@ -4,6 +4,23 @@ import sys
 import cv2
 from sklearn.metrics import precision_score, recall_score
 import  matplotlib.pyplot  as plt
+from albumentations.augmentations import Normalize
+
+
+def denormalize(image):
+    #inverse albumentations normalization
+    mean = (0.485, 0.456, 0.406)
+    std = (0.229, 0.224, 0.225)
+    denorm = Normalize(
+        mean=[-m / s for m, s in zip(mean, std)],
+        std=[1.0 / s for s in std],
+        always_apply=True,
+        max_pixel_value=1.0
+    )
+    image= image.cpu().numpy()
+    image = np.transpose(image,(1,2,0))
+    image = (denorm(image=image)["image"]*255).astype(np.uint8)
+    return image
 
 
 def accuracy(preds, trues):
@@ -16,6 +33,7 @@ def accuracy(preds, trues):
 
 
 def precision_recall(preds,trues):
+    #calculate precision and recall
     preds = [1 if preds[i] >= 0.5 else 0 for i in range(len(preds))]
     trues = [int(trues[i].item()) for i in range(len(preds))]
     prec = precision_score(preds,trues)
@@ -41,22 +59,19 @@ def clean_folder(folder_path):
 
 
 def save_images(images,preds, trues,bad_images_folder):
+    #convert pytorch tensors and save them as images to folder
     preds = [1 if preds[i] >= 0.5 else 0 for i in range(len(preds))]
     trues = [int(trues[i].item()) for i in range(len(preds))]
     for j in range(len(preds)):
         if preds[j]!=trues[j]:
-            image= images[j].data.cpu().numpy()
-            image = np.transpose(image,(1,2,0))
-            image =abs(image)/255
-            image = image.astype(int)
-            print(image.shape)
-            print(image)
-            plt.savefig(bad_images_folder+"test"+str(j)+".png", bbox_inches = "tight", pad_inches = 0.0)
+            image = denormalize(images[j])
+            cv2.imwrite(bad_images_folder+"test"+str(j)+".jpg",image)
 
 
             
 
 class EarlyStopping():
+    #early stopping to avoid overfitting
     def __init__(self, tolerance=5, min_delta=0):
 
         self.tolerance = tolerance
