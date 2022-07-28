@@ -68,5 +68,5 @@ Then, inference can be performed through the command line:
 ## To do 
 Several features might be added or refined in this project: 
 ​
-* Made the training multi-GPU distributed. 
-* Improve the data augmentation strategy that was implemented. 
+* Make the training multi-GPU distributed. 
+* Improve the data augmentation strategy. 
